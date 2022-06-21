@@ -1,23 +1,8 @@
-```python
-
-```
+## A computational framework for the prioritization of genes
 
 
-```python
 
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-<img src=work_flow.png>
+<img src=img/work_flow.png>
 
 ### 1. Selection of the base Genes
 The curated genes from various studies related to the disease or condition of interest **(BASE GENES)**.
@@ -43,16 +28,13 @@ Standrd deviation of the degree across genes were calculated = SD <br>
 ### 6. Construction of Sub-Network
 The subnetwork (**SPIN**) was created by extracting "Hubs", **BASE GENES** and their connected partners from the PPIM.
 
-### 7. Identification of pairwise gene correlation
-Pearson’s correlation algorithm was applied to the genes of 'Sub-Network' to create a weighted gene correlation map based on Pearson's Correlation Coefficient (PCC).In this approach, PCC between the gene-gene pairs in **SPIN** was generated for both control and treated group separately. Next, the difference of PCC (DPCC) between gene pairs of disease and control group. Higher DPCC score implies distinct variation in gene’s interaction from control to treated condition
 
-
-### 8. Semantic Similarity Between Gene Pairs
+### 7. Semantic Similarity Between Gene Pairs
 It has been observed that genes involved in phenotypically similar diseases are often functionally related on the molecular level [Schlicker et al., 2010](https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtq384)<br><br>
-Functional resemblance among two genes is evaluated using prearranged data available in Gene Ontology.<br><br> To evaluate the functional similarity between two genes, Wang’s measure of semantic similarity was applied to molecular function (MF) hierarchy as MF, which specifically defines a particular gene in terms of functional ontology.<br><br> Since a gene can be annotated by many GO terms, we used Best-Match Average (BMA) method which combine semantic similarity scores of several GO terms and calculates the average of all maximum similarities on each row and column
+Functional resemblance among two genes is evaluated using prearranged data available in Gene Ontology.<br><br> To evaluate the functional similarity between two genes, Wang’s measure of semantic similarity was applied to biological process (BP) hierarchy as BP.<br><br> Since a gene can be annotated by many GO terms, we used Best-Match Average (BMA) method which combine semantic similarity scores of several GO terms and calculates the average of all maximum similarities on each row and column
 <br><br>The semantic score of functional similarity between genes range from 0 to 1. Higher semantic score between genes represents a stronger functional relationship among the genes
 
-### 9. Extracting the gene pairs with Fold Change
+### 8. Extracting the gene pairs with Fold Change
 Consider the interactions, fold change in bracket, <br><br>
 "IL6 (1.5)  =::=  TNF (0.5)" <br>
 "IL6 (1.5)  =::=  VEGFA (2.5)" <br>
@@ -67,9 +49,9 @@ If one of the gene in the interaction falls under the cut-off of FoldChnage thre
 "ATM (0.3) :: IL6 (1.5)" <br>
 <br>
 This was done to include the genes that shares similar function with a deregulated genes for functional enrichment analysis
-### 10. Isolated genes with high differential expression
+### 9. Isolated genes with high differential expression
 There may be some genes which are highly differentially expressed but get removed due to lack of connectivity (isolated node) or some other parameters in the filter. <br> To retain these genes in the list, **absolute fold change** with specific threshold was screened from the initial list of significant genes from **step 3**.
-Next, genes which falls under top 75 quantile were screened and included in the final list. There can be many overlap with the genes screened at **step 9**
+Next, genes which falls under top 75 quantile were screened and included in the final list. There can be many overlap with the genes screened at **step 8**
 
 
 ```python
@@ -99,19 +81,6 @@ base_genes.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -178,19 +147,7 @@ sample.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -249,19 +206,7 @@ selected
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -369,8 +314,7 @@ selected
 
 
 
-![volcano_plot.png](attachment:volcano_plot.png)
-<img src='volcano_plot.png'>
+<img src='img/volcano_plot.png'>
 
 
 ```python
@@ -387,19 +331,7 @@ hippie.head(4)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -464,14 +396,8 @@ hippie['Score'].hist(bins=10, figsize=[10,5], facecolor='indigo')
 
 
 
-
-    <AxesSubplot:>
-
-
-
-
     
-![png](output_13_1.png)
+![png](img/output_13_1.png)
     
 
 
@@ -485,19 +411,7 @@ hippie.head(4) #There are about 405704 protein-protein interactions with score 0
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -565,19 +479,7 @@ ppi.head() #112282 interactions
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -656,7 +558,7 @@ hub = hub.round(0)
 ```
 
 **Next, PPI was decomposed to a subnetwork using `hub + partners` and `base genes + partners`.**
-<img src='img/dht_ppi.png'>
+<img src='img/dht_spim.png'>
 
 **Next semantic similarity of the gene pairs from the subnetwork was calculated using `GOSemSim` package in R**
 
@@ -702,19 +604,7 @@ semantic_similarity_sel
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -834,19 +724,7 @@ test
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -969,19 +847,7 @@ final_dht
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1070,22 +936,21 @@ final_dht
 
 The cell line `MDA-MB-453` dataset with series identifier `GSE28305` was run through the same pipeline and compared with cell line `cell line ZR-75-1` (GSE61368)
 
-
-```python
-<img src="img/comparison.png">
-```
-
+<br>
+<img src='img/comparison.png'>
 
 ```python
 
 ```
 
-
-```python
-<img src="img/validation.png">
-```
+<img src='img/validation.png'>
 
 
 ```python
 
 ```
+
+### Reference
+1. [A computational framework for the prioritization of disease-gene candidates](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-16-S9-S2)
+2. [Identification of key regulatory genes connected to NF-κB family of proteins in visceral adipose tissues using gene expression and weighted protein interaction network](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6478283/)
+3. [Construction and analysis of the protein-protein interaction networks based on gene expression profiles of Parkinson’s disease](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0103047)
